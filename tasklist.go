@@ -53,7 +53,7 @@ func (tl *Tasklist) addTask(description string) {
 	newTask := Task{
 		Id: tl.HighestID,
 		Description: description,
-		Done: false,
+		Status: Pending,
 	}
 	tl.Tasks = append(tl.Tasks, newTask)
 	tl.IDs.add(newTask.Id)

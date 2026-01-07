@@ -37,11 +37,11 @@ func main(){
 			case "add":
 				fmt.Print("Enter task description: ")
 				taskDescription = nextLineTrimmed(scanner)
-				tasklist.AddTask(taskDescription)
+				tasklist.addTask(taskDescription)
 			case "done":
 				fmt.Print("Enter task ID to mark as done: ")
 				taskID = nextIntTrimmed(scanner)
-				tasklist.MarkTaskDone(taskID)
+				tasklist.markTaskDone(taskID)
 			case "list":
 				tasklist.print()
 			case "help":
@@ -49,7 +49,7 @@ func main(){
 			case "delete":
 				fmt.Print("Enter task ID to delete: ")
 				taskID = nextIntTrimmed(scanner)
-				tasklist.DeleteTask(taskID)
+				tasklist.deleteTask(taskID)
 			case "exit":
 				fmt.Println("Exiting Task Manager. Goodbye!")
 				return
