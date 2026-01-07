@@ -41,7 +41,7 @@ func main(){
 				taskID, err = strconv.Atoi(taskIDStr)
 				tasklist.MarkTaskDone(taskID)
 			case "list":
-				PrintTasks(&tasklist)
+				tasklist.print()
 			case "help":
 				fmt.Println("Available commands: add, done, list, delete, help, exit")
 			case "delete":

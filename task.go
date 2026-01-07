@@ -1,6 +1,9 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type Task struct {
 	Id int
@@ -14,20 +17,24 @@ type Tasklist struct {
 	CurrentIDs map[int]struct{}
 }
 
-func printTask(t Task) {
+func (t Task) print() {
 	status := "Pending"
 	if t.Done {
 		status = "Done"
 	}
-	fmt.Printf("ID: %d | Description: %s | Status: %s\n", t.Id, t.Description, status)
+	fmt.Printf("%-9d | %-50s | %-10s\n", t.Id, t.Description, status)
 }
 
-func PrintTasks(tl *Tasklist) {	if len(tl.Tasks) == 0 {
+func (tl Tasklist) print() {
+	if len(tl.Tasks) == 0 {
 		fmt.Println("No tasks found.")
 		return
 	}
+	fmt.Println()
+	barrierLen, _ := fmt.Printf("%-9s | %-50s | %-10s\n", "ID", "Description", "Status")
+	fmt.Println(strings.Repeat("-", barrierLen))
 	for _, t := range tl.Tasks {
-		printTask(t)
+		t.print()
 	}
 	//Print currentTasksMap
 	fmt.Println("Current Task IDs:")
