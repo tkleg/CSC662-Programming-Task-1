@@ -13,7 +13,7 @@ Purpose: Manages a list of tasks, allowing for adding, marking as done, deleting
 
 Fields:
 - Tasks: A list of Task structs representing the current tasks in the list.
-- HighestID: An integer tracking the highest assigned taskID to ensure auto-incrementing IDs for new tasks.
+- HighestID: An integer tracking the highest assigned taskID to ensure auto-incrementing IDs for new tasks. Should start at 0 since the first task will be assigned taskID 1.
 - IDs: An idSet struct to efficiently track existing task IDs for quick lookup when marking tasks as done or deleting them.
 
 Methods:

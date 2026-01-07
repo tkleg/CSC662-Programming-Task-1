@@ -16,11 +16,12 @@ func main(){
 		Tasks: []Task{},
 		HighestID: 0,
 		IDs: newIdSet(),
-	} // Empty Takslist to begin with, will be populated by user input
+	} // Empty Tasklist to begin with, will be populated by user input
 	var command string // Should be add, done, list, delete, help, or exit
 	var taskDescription string // User-entered description for a new task
 	var taskID int // Used to search for a task by ID
-	
+	var err error // Used to check for errors when user is prompted to enter a command
+
 	// Create a scanner to read user input
 	// fmt.Scanln not used to handle entire lines since user input may contain whitespace on the ends
 	// This choice was made to be more flexible with user input
@@ -29,27 +30,39 @@ func main(){
 	for {
 		
 		// Get nexst command from user input and trim whitespace for switch statement
-		fmt.Print("Enter command (add, done, list, delete, help, exit): ")
-		command, _ = scanner.ReadString('\n')
-		command = strings.TrimSpace(command)
+		command, err = getNextCommand(scanner)
+		if err != nil {
+			fmt.Println("Error reading command. Please try again.")
+			continue
+		}
 
 		switch command {
 			case "add":
 				fmt.Print("Enter task description: ")
-				taskDescription = nextLineTrimmed(scanner)
-				tasklist.addTask(taskDescription)
+				taskDescription, err = nextLineTrimmed(scanner)
+				if err == nil {
+					tasklist.addTask(taskDescription)
+				}// No print statement for error case since nextLineTrimmed already handles that
 			case "done":
 				fmt.Print("Enter task ID to mark as done: ")
-				taskID = nextIntTrimmed(scanner)
-				tasklist.markTaskDone(taskID)
+				taskID, err = nextIntTrimmed(scanner)
+				if err == nil && taskID > 0 { // Valid integer and greater than 0
+					tasklist.markTaskDone(taskID)
+				} else if err == nil { // Valid integer but not greater than 0
+					fmt.Println("Invalid task ID. Please enter an integer greater than 0. The entered value was:", taskID)
+				}
 			case "list":
 				tasklist.print()
 			case "help":
 				fmt.Println("Available commands: add, done, list, delete, help, exit")
 			case "delete":
 				fmt.Print("Enter task ID to delete: ")
-				taskID = nextIntTrimmed(scanner)
-				tasklist.deleteTask(taskID)
+				taskID, err = nextIntTrimmed(scanner)
+				if err == nil && taskID > 0 { // Valid integer and greater than 0
+					tasklist.deleteTask(taskID)
+				} else if err == nil { // Valid integer but not greater than 0
+					fmt.Println("Invalid task ID. Please enter an integer greater than 0. The entered value was:", taskID)
+				}
 			case "exit":
 				fmt.Println("Exiting Task Manager. Goodbye!")
 				return
@@ -59,18 +72,44 @@ func main(){
 	}// End of main loop asking for input and processing the command
 }
 
+func getNextCommand(scanner *bufio.Reader) (string, error) {
+	fmt.Print("Enter command (add, done, list, delete, help, exit): ")
+	command, err := scanner.ReadString('\n')
+	if err != nil {
+		return "", err
+	}
+	return strings.TrimSpace(command), nil
+}
+
 // Retrieves the next line of user input and trims whitespace from the ends before returning it as a string.
 // bufio.Reader is used to read the entire line of input, ensuring whitespace does not affect the string.
-func nextLineTrimmed(scanner *bufio.Reader) string {
-	line, _ := scanner.ReadString('\n')
-	return strings.TrimSpace(line)
+func nextLineTrimmed(scanner *bufio.Reader) (string, error) {
+	line, err := scanner.ReadString('\n')
+	if err != nil {
+		fmt.Println("Error reading input. Please enter a valid string.")
+		return "\x00", err
+	}
+	return strings.TrimSpace(line), nil
 }
 
 // Retrieves the next line of user input, trims whitespace from the ends, and converts it to an integer before returning it.
 // bufio.Reader is used to read the entire line of input, ensuring whitespace does not affect the integer.
-func nextIntTrimmed(scanner *bufio.Reader) int {
-	line, _ := scanner.ReadString('\n')
+func nextIntTrimmed(scanner *bufio.Reader) (int, error) {
+
+	// Read the next line of input and trim whitespace
+	line, err := scanner.ReadString('\n')
+	if err != nil {
+		fmt.Println("Error reading input. Please enter a valid integer.")
+		return -1, err
+	}
 	line = strings.TrimSpace(line)
-	num, _ := strconv.Atoi(line)
-	return num
+
+	// Convert the trimmed string to an integer
+	num, err := strconv.Atoi(line)
+	if err != nil {
+		fmt.Println("Invalid input. Please enter a valid integer.")
+		return -1, err
+	}
+
+	return num, nil
 }
