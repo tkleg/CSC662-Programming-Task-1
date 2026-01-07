@@ -1,22 +1,28 @@
 package main
 
-import (
-	"fmt"
-	"strings"
-)
+import "fmt"
 
+/*
+Task
+
+Holds information about a single task, including its unique ID, description, and completion status.
+
+Fields:
+- Id: An integer representing the unique identifier for the task.
+- Description: A string containing the details of the task.
+- Done: A boolean indicating whether the task is Pending (false) or Done (true).
+
+Methods:
+- print(): Displays the task's ID, description, and status in a formatted manner.
+- markDone(): Sets the Done field to true, marking the task as completed.
+*/
 type Task struct {
 	Id int
 	Description string
 	Done bool
 }
 
-type Tasklist struct {
-	Tasks []Task
-	HighestID int
-	CurrentIDs map[int]struct{}
-}
-
+// Displays the task's ID, description, and status in a formatted manner.
 func (t Task) print() {
 	status := "Pending"
 	if t.Done {
@@ -25,59 +31,7 @@ func (t Task) print() {
 	fmt.Printf("%-9d | %-50s | %-10s\n", t.Id, t.Description, status)
 }
 
-func (tl Tasklist) print() {
-	if len(tl.Tasks) == 0 {
-		fmt.Println("No tasks found.")
-		return
-	}
-	fmt.Println()
-	barrierLen, _ := fmt.Printf("%-9s | %-50s | %-10s\n", "ID", "Description", "Status")
-	fmt.Println(strings.Repeat("-", barrierLen))
-	for _, t := range tl.Tasks {
-		t.print()
-	}
-	//Print currentTasksMap
-	fmt.Println("Current Task IDs:")
-	for id := range tl.CurrentIDs {
-		fmt.Printf("ID: %d\n", id)
-	}
-	fmt.Println("Highest ID:", tl.HighestID)
-}
-
-func (tl *Tasklist) AddTask(description string) {
-	tl.HighestID++
-	newTask := Task{
-		Id: tl.HighestID,
-		Description: description,
-		Done: false,
-	}
-	tl.Tasks = append(tl.Tasks, newTask)
-	tl.CurrentIDs[newTask.Id] = struct{}{}
-}
-
-func (tl *Tasklist) MarkTaskDone(id int) {
-	if _, exists := tl.CurrentIDs[id]; !exists {
-		fmt.Printf("Task with ID %d not found. Cannot mark done.\n", id)
-		return
-	}
-	for i, t := range tl.Tasks {
-		if t.Id == id {
-			tl.Tasks[i].Done = true
-			return
-		}
-	}
-}
-
-func (tl *Tasklist) DeleteTask(id int) {
-	if _, exists := tl.CurrentIDs[id]; !exists {
-		fmt.Printf("Task with ID %d not found. Cannot delete.\n", id)
-		return
-	}
-	for i, t := range tl.Tasks {
-		if t.Id == id {
-			tl.Tasks = append(tl.Tasks[:i], tl.Tasks[i+1:]...)
-			delete(tl.CurrentIDs, id)
-			return
-		}
-	}
+// Sets the Done field to true, marking the task as completed.
+func (t *Task) markDone() {
+	t.Done = true
 }
