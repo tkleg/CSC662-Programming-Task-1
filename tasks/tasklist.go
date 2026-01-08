@@ -38,7 +38,7 @@ func (tl Tasklist) Print() {
 	}
 	fmt.Println()
 	barrierLen, _ := fmt.Printf("%-9s | %-50s | %-10s\n", "ID", "Description", "Status")
-	fmt.Println(strings.Repeat("-", barrierLen))
+	fmt.Println(strings.Repeat("-", barrierLen-1))
 	for _, t := range tl.Tasks {
 		t.Print()
 	}

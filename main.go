@@ -27,7 +27,7 @@ func main(){
 	// fmt.Scanln not used to handle entire lines since user input may contain whitespace on the ends
 	// This choice was made to be more flexible with user input
 	scanner := bufio.NewReader(os.Stdin)
-
+			
 	for {
 		
 		// Get nexst command from user input and trim whitespace for switch statement
