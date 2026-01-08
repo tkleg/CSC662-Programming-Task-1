@@ -22,6 +22,16 @@
   - `IdSet`: This is simply meant to serve as a way to implement a set. It utitilizes a map and related functions to mimic the adding of elements, the removal of elements, the search for a particular element, and the return of the size of the set. As shown above, this idea and code originated elsewhere. Credit to the author as I simply made small changes to fit my case.
   - `Status`: Simply enum that allows two options and to return a string representation of each enum value.
 
+## Usage
+You will be presented with six options to enter when starting the program.
+- `add`: Prompts you to enter a description, which will then be added to a new task in the tasklist.
+- `done`: Prompts you to enter a taskID in order to change a task's status from **Pending** to **Done**.
+- `list`: If there is at least one task currently in the tasklist, the tasks are all printed in a table format. If there are no tasks in the tasklist, then this will print a message stating that there are no tasks.
+- `delete`: Prompts you to enter a taskID in order to remove a task from the task list.
+- `help`: Displays a help message explaining how to use the program.
+- `exit`: Exits the program.
+If an option other than these 6 are entered, a message will print that says the command is unknown and that you may enter `help` to get the help message.
+
 ## Testing
 - Unit tests are written for the three "classes" used in the program, with each function being tested by its testing function
 - The tests are in a seperate package and folder for the purpose of keeping the directories smaller and easier to manage.
