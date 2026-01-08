@@ -11,10 +11,13 @@ import (
 
 const HELP_MESSAGE string = `
 Available commands:
-	- add: Add a new task with a description. You will be prompted to enter a description after entering this command.
-	- done: Mark a task as done by providing its ID. You will be prompted to enter the task ID after entering this command.
+	- add: Add a new task with a description.
+		You will be prompted to enter a description after entering this command.
+	- done: Mark a task as done by providing its ID.
+		You will be prompted to enter the task ID after entering this command.
 	- list: List all tasks with their ID, description, and status.
-	- delete: Delete a task by providing its ID. You will be prompted to enter the task ID after entering this command.
+	- delete: Delete a task by providing its ID.
+	  	You will be prompted to enter the task ID after entering this command.
 	- help: Display this help message.
 	- exit: Exit the Task Manager.
 `
