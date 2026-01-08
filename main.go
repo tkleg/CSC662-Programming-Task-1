@@ -9,6 +9,16 @@ import (
 	"taskmanager/tasks"
 )
 
+const HELP_MESSAGE string = `
+Available commands:
+	- add: Add a new task with a description. You will be prompted to enter a description after entering this command.
+	- done: Mark a task as done by providing its ID. You will be prompted to enter the task ID after entering this command.
+	- list: List all tasks with their ID, description, and status.
+	- delete: Delete a task by providing its ID. You will be prompted to enter the task ID after entering this command.
+	- help: Display this help message.
+	- exit: Exit the Task Manager.
+`
+
 func main(){
 	fmt.Println("Welcome to the Task Manager!")
 
@@ -27,7 +37,7 @@ func main(){
 	// fmt.Scanln not used to handle entire lines since user input may contain whitespace on the ends
 	// This choice was made to be more flexible with user input
 	scanner := bufio.NewReader(os.Stdin)
-			
+
 	for {
 		
 		// Get nexst command from user input and trim whitespace for switch statement
@@ -55,7 +65,7 @@ func main(){
 			case "list":
 				tasklist.Print()
 			case "help":
-				fmt.Println("Available commands: add, done, list, delete, help, exit")
+				fmt.Println(HELP_MESSAGE)
 			case "delete":
 				fmt.Print("Enter task ID to delete: ")
 				taskID, err = nextIntTrimmed(scanner)

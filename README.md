@@ -22,10 +22,13 @@
   - `Status`: Simply enum that allows two options and to return a string representation of each enum value.
 
 ## Testing
-- Tests are written for the three "classes" used in the program, with each function being tested by its testing function
+- Unit tests are written for the three "classes" used in the program, with each function being tested by its testing function
 - The tests are in a seperate package and folder for the purpose of keeping the directories smaller and easier to manage.
 - To run the tests simply run `go test ./tests -v -count=1`
-  - `-v` is optional, it lets **RUN** and **PASS** messages for each test to be printed along with the test runtimes.
+  - `-v` is optional, it lets **RUN** and **PASS** messages for each test to be printed along with the individual test runtimes.
   - `-count=1` is optional, but it ensures that cached tests are ignored.
 
 ## Build and Run
+- To make an executable, run `go build main.go`.
+  - After that, simply run `./main` to run the executable.
+- To run without making an executable, run `go run main.go`
