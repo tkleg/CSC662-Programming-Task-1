@@ -47,6 +47,9 @@ func main(){
 			continue
 		}
 
+		// Determine which command the user entered and execute the corresponding code
+		// For add, done, and delete commands, the user is prompted for additional input (task description or task ID)
+		// I chose not to refine the code for add, done, and delete into separate functions since the lines for each are not very long, they are used once, and I dislike the idea of only have some options getting their own functions but not others
 		switch command {
 			case "add":
 				fmt.Print("Enter task description: ")

@@ -10,6 +10,7 @@ import (
 Tasklist
 
 Purpose: Manages a list of tasks, allowing for adding, marking as done, deleting, and printing tasks.
+The struct is designed to allow tracking of current tasks ( the list ), the highest assigned task ID ( for auto-incrementing new task IDs ), and a set of existing IDs for efficient lookup when marking tasks as done or deleting them.
 
 Fields:
 - Tasks: A list of Task structs representing the current tasks in the list.

@@ -3,7 +3,8 @@ package tasks
 /*
 IdSet
 
-Meant to mimic a set data structure for easy use elsewhere
+Meant to mimic a set data structure for easy use elsewhere.
+I chose this implementation as it was very simple to write and use.
 
 The code for this was sourced originally from https://www.bytesizego.com/blog/set-in-golang, then modified.
 

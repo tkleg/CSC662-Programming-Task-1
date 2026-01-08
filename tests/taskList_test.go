@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-// Adds 3 tests for the addTask method of Tasklist, the markTaskDone method, and the deleteTask method.
-// Verifies the number of tasks in the list, the descriptions of the tasks, and the lenght of the IDs set after adding tasks.
+// Adds 3 tests for the addTask method of Tasklist.
+// Verifies the number of tasks in the list, the descriptions of the tasks, and the length of the taskIDs set after adding tasks.
 func TestTaskListAdd(t *testing.T) {
 	tasklist := tasks.Tasklist{
 		Tasks: []tasks.Task{},
@@ -62,7 +62,7 @@ func TestTaskListDelete(t *testing.T) {
 	if tasklist.Tasks[0].Id != 2 {
 		t.Errorf("Expected remaining task to have ID 2, got %d", tasklist.Tasks[0].Id)
 	}
-	if tasklist.IDs.Length() != 1 {
-		t.Errorf("Expected 1 ID in the set after deletion, got %d", tasklist.IDs.Length())
+	if tasklist.IDs.Length() != 1 || !tasklist.IDs.Contains(2) || tasklist.IDs.Contains(1) {
+		t.Errorf("Expected only the ID 2 to be in the set after deletion, got length %d, contains 2: %t, contains 1: %t", tasklist.IDs.Length(), tasklist.IDs.Contains(2), tasklist.IDs.Contains(1))
 	}
 }
