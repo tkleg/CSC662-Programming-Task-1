@@ -1,4 +1,4 @@
-package main
+package tasks
 
 import "fmt"
 
@@ -12,22 +12,22 @@ Fields:
 - Description: A string containing the details of the task.
 
 Methods:
-- print(): Displays the task's ID, description, and status in a formatted manner.
-- markDone(): Sets the status field to Done (Status enum value), marking the task as completed.
+- Print(): Displays the task's ID, description, and status in a formatted manner.
+- MarkDone(): Sets the status field to Done (Status enum value), marking the task as completed.
 */
 
 type Task struct {
-	Id int
+	Id          int
 	Description string
-	Status Status
+	Status      Status
 }
 
 // Displays the task's ID, description, and status in a formatted manner.
-func (t Task) print() {
+func (t Task) Print() {
 	fmt.Printf("%-9d | %-50s | %-10s\n", t.Id, t.Description, t.Status.String())
 }
 
 // Sets the status field to Done (Status enum value), marking the task as completed.
-func (t *Task) markDone() {
+func (t *Task) MarkDone() {
 	t.Status = Done
 }

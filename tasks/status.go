@@ -1,4 +1,4 @@
-package main
+package tasks
 
 /*
 Status
@@ -17,13 +17,14 @@ Methods:
 
 */
 type Status int
+
 const (
 	Done Status = iota
 	Pending
 )
 
 var statusName = map[Status]string{
-	Done: "Done",
+	Done:    "Done",
 	Pending: "Pending",
 }
 

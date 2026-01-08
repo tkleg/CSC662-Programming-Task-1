@@ -6,16 +6,17 @@ import (
 	"os" // Access to stdIn
 	"strings" // Use for trimming whitespace from user input
 	"strconv" // Convert string input to int for taskIDs
+	"taskmanager/tasks"
 )
 
 func main(){
 	fmt.Println("Welcome to the Task Manager!")
 
 	// Initialize Data
-	tasklist := Tasklist{
-		Tasks: []Task{},
+	tasklist := tasks.Tasklist{
+		Tasks: []tasks.Task{},
 		HighestID: 0,
-		IDs: newIdSet(),
+		IDs: tasks.NewIdSet(),
 	} // Empty Tasklist to begin with, will be populated by user input
 	var command string // Should be add, done, list, delete, help, or exit
 	var taskDescription string // User-entered description for a new task
@@ -41,25 +42,25 @@ func main(){
 				fmt.Print("Enter task description: ")
 				taskDescription, err = nextLineTrimmed(scanner)
 				if err == nil {
-					tasklist.addTask(taskDescription)
+					tasklist.AddTask(taskDescription)
 				}// No print statement for error case since nextLineTrimmed already handles that
 			case "done":
 				fmt.Print("Enter task ID to mark as done: ")
 				taskID, err = nextIntTrimmed(scanner)
 				if err == nil && taskID > 0 { // Valid integer and greater than 0
-					tasklist.markTaskDone(taskID)
+					tasklist.MarkTaskDone(taskID)
 				} else if err == nil { // Valid integer but not greater than 0
 					fmt.Println("Invalid task ID. Please enter an integer greater than 0. The entered value was:", taskID)
 				}
 			case "list":
-				tasklist.print()
+				tasklist.Print()
 			case "help":
 				fmt.Println("Available commands: add, done, list, delete, help, exit")
 			case "delete":
 				fmt.Print("Enter task ID to delete: ")
 				taskID, err = nextIntTrimmed(scanner)
 				if err == nil && taskID > 0 { // Valid integer and greater than 0
-					tasklist.deleteTask(taskID)
+					tasklist.DeleteTask(taskID)
 				} else if err == nil { // Valid integer but not greater than 0
 					fmt.Println("Invalid task ID. Please enter an integer greater than 0. The entered value was:", taskID)
 				}
